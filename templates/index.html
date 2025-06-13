@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Datos de Sensores</title>
+</head>
+<body>
+    <h1>Formulario de ingreso</h1>
+    <form method="POST">
+        Sensor: <input type="text" name="sensor" required><br>
+        Valor: <input type="number" name="valor" step="0.01" required><br>
+        Unidad: <input type="text" name="unidad" required><br>
+        Ubicación: <input type="text" name="ubicacion" required><br>
+        <input type="submit" value="Guardar">
+    </form>
+
+    <h2>Datos almacenados:</h2>
+    <ul> 
+        {% for doc in datos %}
+            <li>{{ doc.sensor }} - {{ doc.valor }} {{ doc.unidad }} - {{ doc.ubicacion }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
