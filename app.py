@@ -1,16 +1,20 @@
+import os
+from urllib.parse import quote_plus
 from flask import Flask, request, render_template, redirect
 from pymongo import MongoClient
-from urllib.parse import quote_plus
 
 app = Flask(__name__)
 
-# Conexión a MongoDB Atlas
-usuario = quote_plus("lauraarteaga1005")
-clave = quote_plus("5quqO6Fq36krMM7l")
-cluster = "cluster0.ifst0oe.mongodb.net"
-base_datos = "mi_base"
+# Recuperar variables de entorno
+usuario = quote_plus(os.environ['MONGO_USER'])
+clave = quote_plus(os.environ['MONGO_PASS'])
+cluster = os.environ['MONGO_CLUSTER']
+base_datos = os.environ['MONGO_DB']
+
+# URI segura
 uri = f"mongodb+srv://{usuario}:{clave}@{cluster}/{base_datos}?retryWrites=true&w=majority"
 
+# Conexión a MongoDB
 client = MongoClient(uri, serverSelectionTimeoutMS=5000)
 db = client[base_datos]
 coleccion = db["mi_coleccion"]
